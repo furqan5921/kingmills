@@ -29,7 +29,14 @@ mongoose.connect(process.env.MONGO_URI, {
     process.exit(1); // Exit the application with an error code
   });
 
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: ["https://kingmills.vercel.app"], // Replace '*' with the specific origin(s) you want to allow, e.g., 'https://yourdomain.com'
+    methods: ['POST', 'GET', 'PUT', 'DELETE'], // Define allowed HTTP methods
+    credentials: true, // Allow credentials like cookies to be sent
+  })
+);
 app.use(express.json());
 
 app.use('/api', authRoutes);
