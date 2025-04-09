@@ -19,17 +19,17 @@ const Login = () => {
         username,
         password,
       });
-      console.log("🚀 ~ handleLogin ~ response:", response);
 
       if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("token", response.data.token); // Store token in localStorage
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user details
         setMessage(`Welcome, ${response.data.user.username}!`);
         navigate("/");
       } else {
         setMessage(response.data.message || "Login failed. Please try again.");
       }
     } catch (error) {
-      setMessage("Error connecting to server. Please try again later.");
+      setMessage(error.response?.data?.message || "An error occurred.");
     } finally {
       setLoading(false);
     }
